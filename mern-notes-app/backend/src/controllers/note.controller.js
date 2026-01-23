@@ -33,14 +33,14 @@ export const getAllNotes = async (_, res) => {
 };
 
 export const createNote = async (req, res) => {
-	const { title, description, isCompleted } = req.body;
+	const { title, description } = req.body;
 
 	if (!title || !description) {
 		return res.status(400).json({ message: "Please provide all fields!" });
 	}
 
 	try {
-		const newNote = await Note.create({ title, description, isCompleted });
+		const newNote = await Note.create({ title, description });
 		res.status(201).json(newNote);
 	} catch (err) {
 		console.error("Error in the createNote controller!", err.message);
@@ -50,7 +50,7 @@ export const createNote = async (req, res) => {
 
 export const updateNote = async (req, res) => {
 	const { id } = req.params;
-	const { title, description, isCompleted } = req.body;
+	const { title, description } = req.body;
 
 	if (!title && !description) {
 		return res
@@ -60,7 +60,7 @@ export const updateNote = async (req, res) => {
 	try {
 		const updatedNote = await Note.findByIdAndUpdate(
 			id,
-			{ title, description, isCompleted },
+			{ title, description },
 			{
 				new: true,
 				runValidators: true,

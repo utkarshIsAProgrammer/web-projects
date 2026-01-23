@@ -12,11 +12,6 @@ const noteSchema = new mongoose.Schema(
 			type: String,
 			required: true,
 		},
-
-		isCompleted: {
-			type: Boolean,
-			default: false,
-		},
 	},
 
 	{ timestamps: true },
