@@ -1,12 +1,7 @@
 import Note from "../models/note.model.js";
-import mongoose from "mongoose";
 
 export const getNote = async (req, res) => {
 	const { id } = req.params;
-
-	if (!mongoose.Types.ObjectId.isValid(id)) {
-		return res.status(400).json({ message: "Invalid ID!" });
-	}
 
 	try {
 		const note = await Note.findById(id);
@@ -57,10 +52,6 @@ export const updateNote = async (req, res) => {
 	const { id } = req.params;
 	const { title, description, isCompleted } = req.body;
 
-	if (!mongoose.Types.ObjectId.isValid(id)) {
-		return res.status(400).json({ message: "Invalid ID!" });
-	}
-
 	if (!title && !description) {
 		return res
 			.status(404)
@@ -89,10 +80,6 @@ export const updateNote = async (req, res) => {
 
 export const deleteNote = async (req, res) => {
 	const { id } = req.params;
-
-	if (!mongoose.Types.ObjectId.isValid(id)) {
-		return res.status(400).json({ message: "Invalid ID!" });
-	}
 
 	try {
 		const deletedNote = await Note.findByIdAndDelete(id);
