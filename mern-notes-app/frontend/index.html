@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
+			rel="stylesheet" />
+
+		<link rel="stylesheet" href="style.css" />
+
+		<script src="script.js" defer></script>
+
+		<title>MERN NOTES APP</title>
+	</head>
+	<body>
+		<div class="container">
+			<header>
+				<div class="header-left">
+					<h1>✨ Note Manager Pro</h1>
+				</div>
+				<div class="header-actions">
+					<button
+						class="theme-toggle"
+						id="themeToggle"
+						title="Toggle theme">
+						<span class="theme-icon">🌙</span>
+					</button>
+
+					<button class="delete-all-btn" id="deleteAllBtn">
+						Delete All
+					</button>
+				</div>
+			</header>
+
+			<section class="form-section">
+				<h2 class="form-title" id="formTitle">📝 Create New Note</h2>
+
+				<div id="uiMessage" class="ui-message"></div>
+
+				<form id="noteForm">
+					<input type="hidden" id="noteId" />
+
+					<div class="input-group">
+						<input
+							type="text"
+							id="title"
+							placeholder="Enter note title..." />
+					</div>
+
+					<div class="input-group">
+						<textarea
+							id="description"
+							placeholder="Write your note here..."></textarea>
+					</div>
+
+					<div class="button-group">
+						<button type="submit" id="submitBtn">Save Note</button>
+
+						<button type="button" id="cancelEditBtn" class="hidden">
+							✖️ Cancel
+						</button>
+					</div>
+				</form>
+			</section>
+
+			<hr />
+
+			<section class="notes-section">
+				<div class="section-header">
+					<h2>📚 Your Notes</h2>
+					<button
+						id="refreshBtn"
+						onclick="fetchNotes()"
+						title="Refresh List">
+						⭕
+					</button>
+				</div>
+
+				<div id="notesDisplay">
+					<p class="loading">Loading notes...</p>
+				</div>
+			</section>
+		</div>
+	</body>
+</html>

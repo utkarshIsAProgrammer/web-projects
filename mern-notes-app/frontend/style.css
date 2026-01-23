@@ -1,0 +1,463 @@
+/* || Reset & Base Box Sizing */
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+/* || Global Theme Variables (Light Mode Default) */
+:root {
+	--bg-primary: #ffffff; /* Page background */
+	--bg-secondary: #f8f9fa; /* Input & secondary background */
+	--bg-card: #ffffff; /* Note card background */
+	--text-primary: #1a1a1a; /* Main headings & text */
+	--text-secondary: #6b7280; /* Subtext & descriptions */
+	--accent: #6366f1; /* Primary brand color (Indigo) */
+	--accent-hover: #4f46e5;
+	--danger: #ef4444; /* Error & delete color */
+	--danger-hover: #dc2626;
+	--success: #10b981; /* Success messages */
+	--border: #e5e7eb; /* Component borders */
+	--shadow: rgba(0, 0, 0, 0.1);
+	--shadow-lg: rgba(0, 0, 0, 0.15);
+}
+
+/* || Dark Mode Variable Overrides */
+[data-theme="dark"] {
+	--bg-primary: #0f172a; /* Deep navy background */
+	--bg-secondary: #1e293b;
+	--bg-card: #1e293b; /* Slate card background */
+	--text-primary: #f1f5f9;
+	--text-secondary: #94a3b8;
+	--accent: #818cf8; /* Lighter indigo for better contrast */
+	--accent-hover: #6366f1;
+	--border: #334155;
+	--shadow: rgba(0, 0, 0, 0.3);
+	--shadow-lg: rgba(0, 0, 0, 0.5);
+}
+
+/* || Body & Layout Setup */
+body {
+	font-family: "Montserrat", sans-serif;
+	background: var(--bg-primary);
+	color: var(--text-primary);
+	transition:
+		background 0.3s ease,
+		color 0.3s ease; /* Smooth theme switching */
+	min-height: 100vh;
+	padding: 2rem 1rem;
+}
+
+/* || Main Layout Container */
+.container {
+	max-width: 900px;
+	margin: 0 auto;
+	animation: fadeIn 0.6s ease; /* Slide up on page load */
+}
+
+/* Intro Animation for Page Content */
+@keyframes fadeIn {
+	from {
+		opacity: 0;
+		transform: translateY(20px);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+/* || Header Section */
+header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-bottom: 3rem;
+	padding-bottom: 1.5rem;
+	border-bottom: 2px solid var(--border);
+}
+
+.header-left {
+	display: flex;
+	align-items: center;
+	gap: 1rem;
+}
+
+/* Gradient Text Effect for Main Title */
+h1 {
+	font-size: 2rem;
+	font-weight: 700;
+	background: linear-gradient(135deg, var(--accent), var(--danger));
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+	background-clip: text;
+}
+
+.header-actions {
+	display: flex;
+	gap: 1rem;
+	align-items: center;
+}
+
+/* || Theme Toggle Button (Circular) */
+.theme-toggle {
+	background: var(--bg-secondary);
+	border: 2px solid var(--border);
+	width: 50px;
+	height: 50px;
+	border-radius: 50%;
+	cursor: pointer;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	transition: all 0.3s ease;
+	position: relative;
+	overflow: hidden;
+}
+
+.theme-toggle:hover {
+	transform: scale(1.05);
+	border-color: var(--accent);
+}
+
+.theme-icon {
+	font-size: 1.3rem;
+	transition: transform 0.3s ease;
+}
+
+/* Rotating icon effect on click */
+.theme-toggle:active .theme-icon {
+	transform: rotate(180deg);
+}
+
+/* || Delete All Button (Danger Gradient) */
+.delete-all-btn {
+	background: linear-gradient(135deg, var(--danger), #cf0e38);
+	color: white;
+	border: none;
+	padding: 0.75rem 1.5rem;
+	border-radius: 12px;
+	font-weight: 600;
+	cursor: pointer;
+	transition: all 0.3s ease;
+	box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
+}
+
+.delete-all-btn:hover {
+	transform: translateY(-2px);
+	box-shadow: 0 6px 20px rgba(239, 68, 68, 0.4);
+}
+
+/* || Form Styling */
+.form-section {
+	background: var(--bg-card);
+	padding: 2rem;
+	border-radius: 20px;
+	margin-bottom: 2rem;
+	box-shadow: 0 4px 20px var(--shadow);
+	transition: all 0.3s ease;
+}
+
+.form-section:hover {
+	box-shadow: 0 8px 30px var(--shadow-lg);
+}
+
+.form-title {
+	font-size: 1.5rem;
+	margin-bottom: 1.5rem;
+	color: var(--text-primary);
+	display: flex;
+	align-items: center;
+	gap: 0.5rem;
+}
+
+/* || Feedback Banner (Success/Error) */
+.ui-message {
+	padding: 1rem;
+	border-radius: 12px;
+	margin-bottom: 1.5rem;
+	font-weight: 500;
+	animation: slideDown 0.4s ease;
+	display: none; /* Controlled by JavaScript */
+}
+
+.ui-message.success {
+	background: rgba(16, 185, 129, 0.1);
+	color: var(--success);
+	border: 2px solid var(--success);
+}
+
+.ui-message.error {
+	background: rgba(239, 68, 68, 0.1);
+	color: var(--danger);
+	border: 2px solid var(--danger);
+}
+
+@keyframes slideDown {
+	from {
+		opacity: 0;
+		transform: translateY(-10px);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+/* || Input & Textarea Fields */
+.input-group {
+	margin-bottom: 1.5rem;
+}
+
+input,
+textarea {
+	width: 100%;
+	padding: 1rem;
+	border: 2px solid var(--border);
+	border-radius: 12px;
+	font-size: 1rem;
+	background: var(--bg-secondary);
+	color: var(--text-primary);
+	transition: all 0.3s ease;
+	font-family: inherit;
+}
+
+/* Active/Focus state for inputs */
+input:focus,
+textarea:focus {
+	outline: none;
+	border-color: var(--accent);
+	box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.1);
+	transform: translateY(-2px);
+}
+
+textarea {
+	min-height: 120px;
+	resize: vertical;
+}
+
+/* || Action Buttons Group */
+.button-group {
+	display: flex;
+	gap: 1rem;
+}
+
+/* Primary Submit Button */
+button[type="submit"] {
+	flex: 1;
+	background: linear-gradient(135deg, var(--accent), #8b5cf6);
+	color: white;
+	border: none;
+	padding: 1rem;
+	border-radius: 12px;
+	font-weight: 600;
+	font-size: 1rem;
+	cursor: pointer;
+	transition: all 0.3s ease;
+	box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
+}
+
+button[type="submit"]:hover {
+	transform: translateY(-2px);
+	box-shadow: 0 6px 20px rgba(99, 102, 241, 0.4);
+}
+
+/* Secondary Cancel Button (Hidden by default) */
+#cancelEditBtn {
+	background: var(--bg-secondary);
+	color: var(--text-primary);
+	border: 2px solid var(--border);
+	padding: 1rem 2rem;
+	border-radius: 12px;
+	font-weight: 600;
+	cursor: pointer;
+	transition: all 0.3s ease;
+}
+
+#cancelEditBtn:hover {
+	border-color: var(--accent);
+	background: var(--bg-primary);
+}
+
+.hidden {
+	display: none !important;
+}
+
+/* Visual divider */
+hr {
+	border: none;
+	height: 2px;
+	background: linear-gradient(90deg, transparent, var(--border), transparent);
+	margin: 2rem 0;
+}
+
+/* || Notes Display Area */
+.notes-section {
+	animation: fadeIn 0.6s ease 0.2s both;
+}
+
+.section-header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-bottom: 1.5rem;
+}
+
+.section-header h2 {
+	font-size: 1.75rem;
+	color: var(--text-primary);
+}
+
+#refreshBtn {
+	background: var(--bg-secondary);
+	color: var(--text-primary);
+	border: 2px solid var(--border);
+	padding: 0.75rem 1.5rem;
+	border-radius: 12px;
+	font-weight: 600;
+	cursor: pointer;
+	transition: all 0.3s ease;
+}
+
+#refreshBtn:hover {
+	border-color: var(--accent);
+	transform: translateY(-2px);
+}
+
+/* || Note Card Component */
+.note-card {
+	background: var(--bg-card);
+	border: 2px solid var(--border);
+	border-left: 6px solid var(--accent); /* Indigo accent strip */
+	padding: 1.5rem;
+	margin-bottom: 1rem;
+	border-radius: 16px;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	transition: all 0.3s ease;
+	box-shadow: 0 2px 8px var(--shadow);
+	animation: slideIn 0.4s ease;
+}
+
+@keyframes slideIn {
+	from {
+		opacity: 0;
+		transform: translateX(-20px);
+	}
+	to {
+		opacity: 1;
+		transform: translateX(0);
+	}
+}
+
+.note-card:hover {
+	transform: translateY(-4px);
+	box-shadow: 0 8px 25px var(--shadow-lg);
+	border-left-width: 8px; /* Expand indigo strip on hover */
+}
+
+.note-info h3 {
+	color: var(--text-primary);
+	margin-bottom: 0.5rem;
+	font-size: 1.25rem;
+}
+
+.note-info p {
+	color: var(--text-secondary);
+	line-height: 1.6;
+}
+
+.note-actions {
+	display: flex;
+	gap: 0.75rem;
+}
+
+/* || Edit & Delete Buttons */
+.edit-btn,
+.delete-btn {
+	padding: 0.6rem 1.2rem;
+	border-radius: 10px;
+	font-weight: 600;
+	cursor: pointer;
+	transition: all 0.3s ease;
+	border: none;
+}
+
+.edit-btn {
+	background: rgba(99, 102, 241, 0.1);
+	color: var(--accent);
+}
+
+.edit-btn:hover {
+	background: var(--accent);
+	color: white;
+	transform: translateY(-2px);
+}
+
+.delete-btn {
+	background: rgba(239, 68, 68, 0.1);
+	color: var(--danger);
+}
+
+.delete-btn:hover {
+	background: var(--danger);
+	color: white;
+	transform: translateY(-2px);
+}
+
+.empty-msg,
+.loading {
+	text-align: center;
+	color: var(--text-secondary);
+	padding: 3rem;
+	font-size: 1.1rem;
+}
+
+/* || Responsive Queries (Mobile Devices) */
+@media (max-width: 760px) {
+	/* Stack header elements vertically & center them */
+	header {
+		flex-direction: column;
+		gap: 1.2rem;
+		align-items: center;
+		text-align: center;
+		padding-bottom: 2rem;
+	}
+
+	.header-left h1 {
+		font-size: 1.8rem;
+		width: 100%;
+		text-align: center;
+	}
+
+	.header-actions {
+		width: 100%;
+		justify-content: center;
+		gap: 1.2rem;
+	}
+
+	/* Stack note cards vertically for small screens */
+	.note-card {
+		flex-direction: column;
+		align-items: center;
+		text-align: center;
+		gap: 1rem;
+	}
+
+	.note-actions {
+		width: 100%;
+		justify-content: center;
+	}
+
+	.edit-btn,
+	.delete-btn {
+		flex: 1;
+		max-width: 150px;
+	}
+
+	/* Make form buttons full width when stacked */
+	.button-group {
+		flex-direction: column;
+	}
+}
