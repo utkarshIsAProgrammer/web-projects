@@ -1,4 +1,5 @@
 import Task from "../models/task.model.js";
+// import MongooseDelete from "mongoose-delete";
 
 export const getTask = async (req, res) => {
 	const { id } = req.params;
@@ -23,7 +24,7 @@ export const getAllTasks = async (_, res) => {
 };
 
 export const createTask = async (req, res) => {
-	const { title, description, dueDate, priority, isDeleted, isCompleted } =
+	const { title, description, dueDate, priority, deletedAt, isCompleted } =
 		req.body;
 
 	try {
@@ -32,7 +33,7 @@ export const createTask = async (req, res) => {
 			description,
 			dueDate,
 			priority,
-			isDeleted,
+			deletedAt,
 			isCompleted,
 		});
 		await newTask.save();
@@ -45,7 +46,7 @@ export const createTask = async (req, res) => {
 
 export const updateTask = async (req, res) => {
 	const { id } = req.params;
-	const { title, description, dueDate, priority, isDeleted, isCompleted } =
+	const { title, description, dueDate, priority, deletedAt, isCompleted } =
 		req.body;
 
 	try {
@@ -56,7 +57,7 @@ export const updateTask = async (req, res) => {
 				description,
 				dueDate,
 				priority,
-				isDeleted,
+				deletedAt,
 				isCompleted,
 			},
 			{ new: true, runValidators: true },
@@ -89,3 +90,14 @@ export const deleteAllTasks = async (_, res) => {
 		res.status(500).json({ message: "Internal server error!" });
 	}
 };
+
+// soft controllers
+/* export const softDeleteTask = async (req, res) => {
+	try {
+		await Task.deleteById();
+	} catch (err) {
+		console.log("Error in the softDeleteTask controller!", err.message);
+		res.status(500).json({ message: "Internal server error!" });
+	}
+};
+ */
