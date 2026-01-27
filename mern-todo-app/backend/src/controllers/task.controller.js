@@ -58,9 +58,6 @@ export const updateTask = async (req, res) => {
 	const { id } = req.params;
 	const { title, description, dueDate, priority, deletedAt, isCompleted } =
 		req.body;
-	if (!title || !description) {
-		return res.status(400).json({ message: "Please provide all fields!" });
-	}
 
 	try {
 		const updatedTask = await Task.findByIdAndUpdate(
