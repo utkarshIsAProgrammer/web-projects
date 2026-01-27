@@ -11,6 +11,7 @@ import {
 	moveAllTasksToBin,
 	restoreAllTasksFromBin,
 	showBin,
+	toggleTaskCompletion,
 } from "../controllers/task.controller.js";
 import { validateId } from "../middlewares/validateId.middleware.js";
 
@@ -30,5 +31,7 @@ router.patch("/restore-task-from-bin/:id", validateId, restoreTaskFromBin);
 router.patch("/move-all-tasks-to-bin", moveAllTasksToBin);
 router.patch("/restore-all-tasks-from-bin", restoreAllTasksFromBin);
 router.get("/bin", showBin);
+
+router.patch("/toggle-completed/:id", validateId, toggleTaskCompletion);
 
 export default router;
