@@ -92,12 +92,59 @@ export const deleteAllTasks = async (_, res) => {
 };
 
 // soft controllers
-/* export const softDeleteTask = async (req, res) => {
+export const moveTaskToBin = async (req, res) => {
+	const { id } = req.params;
+
 	try {
-		await Task.deleteById();
+		await Task.deleteById(id);
+		res.status(200).json({ message: "Task moved to bin!" });
 	} catch (err) {
-		console.log("Error in the softDeleteTask controller!", err.message);
+		console.log("Error in the moveTaskToBin controller!", err.message);
 		res.status(500).json({ message: "Internal server error!" });
 	}
 };
- */
+
+export const restoreTaskFromBin = async (req, res) => {
+	const { id } = req.params;
+
+	try {
+		await Task.restore({ _id: id });
+		res.status(200).json({ message: "Task restored successfully!" });
+	} catch (err) {
+		console.log("Error in the restoreTaskFromBin controller!", err.message);
+		res.status(500).json({ message: "Internal server error!" });
+	}
+};
+
+export const moveAllTasksToBin = async (_, res) => {
+	try {
+		await Task.delete({});
+		res.status(200).json({ message: "All tasks are moved to bin!" });
+	} catch (err) {
+		console.log("Error in the moveAllTasksToBin controller!", err.message);
+		res.status(500).json({ message: "Internal server error!" });
+	}
+};
+
+export const restoreAllTasksFromBin = async (_, res) => {
+	try {
+		await Task.restore({});
+		res.status(200).json({ message: "All tasks restored successfully!" });
+	} catch (err) {
+		console.log(
+			"Error in the restoreAllTasksFromBin controller!",
+			err.message,
+		);
+		res.status(500).json({ message: "Internal server error!" });
+	}
+};
+
+export const showBin = async (_, res) => {
+	try {
+		const bin = await Task.findDeleted();
+		res.status(200).json(bin);
+	} catch (err) {
+		console.log("Error in the showBin controller!", err.message);
+		res.status(500).json({ message: "Internal server error!" });
+	}
+};
