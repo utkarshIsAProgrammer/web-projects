@@ -201,3 +201,23 @@ export const showBin = async (_, res) => {
 		res.status(500).json({ message: "Internal server error!" });
 	}
 };
+
+export const toggleTaskCompletion = async (req, res) => {
+	const { id } = req.params;
+
+	try {
+		const task = await Task.findById(id);
+		if (!task) {
+			return res.status(404).json({ message: "Task not found!" });
+		}
+		task.isCompleted = !task.isCompleted;
+		await task.save();
+		res.status(200).json({
+			message: `Task ${task.isCompleted ? "completed" : "incomplete"}`,
+			task,
+		});
+	} catch (err) {
+		console.log("Error in toggleTaskCompletion controller!", err.message);
+		res.status(500).json({ message: "Internal server error!" });
+	}
+};
