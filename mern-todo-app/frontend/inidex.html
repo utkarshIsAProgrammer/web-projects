@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>ProTask - Beautiful Todo Manager</title>
+		<link
+			rel="stylesheet"
+			href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+			rel="stylesheet" />
+		<link rel="stylesheet" href="style.css" />
+		<script src="script.js" defer></script>
+	</head>
+	<body>
+		<!-- Toast Container -->
+		<div class="toast-container" id="toastContainer"></div>
+
+		<!-- Navbar -->
+		<nav class="navbar">
+			<div class="nav-container">
+				<div class="brand">
+					<div class="brand-text">
+						<h1>ProTasks</h1>
+						<p>Stay organized, stay productive</p>
+					</div>
+				</div>
+				<button
+					class="theme-toggle"
+					onclick="toggleTheme()"
+					id="themeToggle">
+					<i class="fas fa-moon" id="themeIcon"></i>
+				</button>
+			</div>
+		</nav>
+
+		<!-- Main Container -->
+		<div class="container">
+			<!-- Create Task Section -->
+			<section class="create-section">
+				<div class="gradient-border">
+					<div class="gradient-content">
+						<div class="section-header">
+							<div class="section-icon">
+								<i class="fas fa-plus"></i>
+							</div>
+							<h2>Create New Task</h2>
+						</div>
+						<div class="form-grid">
+							<input
+								type="text"
+								id="taskTitle"
+								placeholder="What needs to be done?" />
+							<select id="taskPriority">
+								<option value="low">🟢 Low Priority</option>
+								<option value="medium" selected>
+									🟡 Medium Priority
+								</option>
+								<option value="high">🔴 High Priority</option>
+							</select>
+							<input
+								type="text"
+								id="taskDesc"
+								placeholder="Add some details..."
+								class="form-group-full" />
+							<input type="date" id="taskDate" />
+							<button class="btn-primary" onclick="createTask()">
+								<i class="fas fa-plus-circle"></i>
+								Add Task
+							</button>
+						</div>
+					</div>
+				</div>
+			</section>
+
+			<!-- Tabs Section -->
+			<div class="tabs-section">
+				<div class="tabs">
+					<button
+						class="tab-btn active"
+						id="tabAll"
+						onclick="switchTab('all')">
+						<i class="fas fa-list"></i> All Tasks
+					</button>
+					<button
+						class="tab-btn"
+						id="tabBin"
+						onclick="switchTab('bin')">
+						<i class="fas fa-trash-alt"></i> Bin
+					</button>
+				</div>
+				<div class="tab-actions" id="tabActions"></div>
+			</div>
+
+			<!-- Tasks Container -->
+			<div class="tasks-container" id="tasksContainer"></div>
+		</div>
+
+		<!-- Edit Modal -->
+		<div class="modal" id="editModal" onclick="closeModalOnBackdrop(event)">
+			<div class="modal-content" onclick="event.stopPropagation()">
+				<div class="modal-header">
+					<div class="modal-title-group">
+						<div class="section-icon">
+							<i class="fas fa-edit"></i>
+						</div>
+						<h2 class="modal-title">Edit Task</h2>
+					</div>
+					<button class="btn-close" onclick="closeModal()">
+						<i class="fas fa-times"></i>
+					</button>
+				</div>
+				<div class="modal-body">
+					<input type="hidden" id="editId" />
+					<div class="form-group">
+						<label>Title</label>
+						<input type="text" id="editTitle" />
+					</div>
+					<div class="form-group">
+						<label>Description</label>
+						<textarea id="editDesc" rows="4"></textarea>
+					</div>
+					<div class="form-group">
+						<label>Priority</label>
+						<select id="editPriority">
+							<option value="low">🟢 Low</option>
+							<option value="medium">🟡 Medium</option>
+							<option value="high">🔴 High</option>
+						</select>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button class="btn-secondary" onclick="closeModal()">
+						Cancel
+					</button>
+					<button class="btn-primary" onclick="updateTask()">
+						<i class="fas fa-save"></i> Save Changes
+					</button>
+				</div>
+			</div>
+		</div>
+
+		<!-- Floating Action Button -->
+		<button class="fab" onclick="scrollToTop()">
+			<i class="fas fa-arrow-up"></i>
+		</button>
+	</body>
+</html>

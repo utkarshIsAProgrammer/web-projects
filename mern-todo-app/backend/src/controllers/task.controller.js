@@ -199,6 +199,21 @@ export const showBin = async (_, res) => {
 	}
 };
 
+export const emptyBin = async (_, res) => {
+	try {
+		const result = await Task.deleteMany({ deleted: true });
+		if (result.deletedCount === 0) {
+			return res.status(404).json({ message: "Bin is already empty!" });
+		}
+		res.status(200).json({
+			message: `Successfully cleared ${result.deletedCount} tasks from the bin permanently!`,
+		});
+	} catch (err) {
+		console.log("Error in the emptyBin controller!", err.message);
+		res.status(500).json({ message: "Internal server error!" });
+	}
+};
+
 export const toggleTaskCompletion = async (req, res) => {
 	const { id } = req.params;
 
